@@ -90,37 +90,6 @@ ul { list-style: none; }
   will-change: transform, opacity;
 }
 
-/* ---------- Hero parallax background text ---------- */
-.hero {
-  position: relative;
-  overflow: hidden;
-}
-
-.hero-parallax {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  pointer-events: none;
-  z-index: 0;
-  will-change: transform;
-}
-
-.hero-parallax span {
-  font-size: clamp(3rem, 12vw, 8rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--color-text);
-  opacity: 0.04;
-  white-space: nowrap;
-}
-
-.hero-inner {
-  position: relative;
-  z-index: 1;
-}
-
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1;
@@ -134,9 +103,6 @@ ul { list-style: none; }
   }
   .hero-inner {
     transition: none;
-  }
-  .hero-parallax {
-    display: none;
   }
   html {
     scroll-behavior: auto;
@@ -207,10 +173,17 @@ ul { list-style: none; }
 
 /* ---------- Hero ---------- */
 .hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
   padding: var(--space-6) 0 var(--space-5);
 }
 
-.hero-inner { text-align: center; }
+.hero-inner {
+  text-align: center;
+  width: 100%;
+}
 
 .eyebrow {
   color: var(--color-text-muted);

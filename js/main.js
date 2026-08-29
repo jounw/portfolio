@@ -57,10 +57,9 @@ if (kineticEl) {
   }
 }
 
-/* Hero shrink-on-scroll + parallax background text */
+/* Hero shrink-on-scroll */
 const heroInner = document.querySelector('.hero-inner');
 const heroSection = document.getElementById('hero');
-const parallaxLayer = document.querySelector('.hero-parallax');
 
 function updateHeroScrollEffects() {
   if (!heroSection) return;
@@ -70,10 +69,6 @@ function updateHeroScrollEffects() {
   if (heroInner) {
     heroInner.style.transform = `scale(${1 - progress * 0.12}) translateY(${progress * -20}px)`;
     heroInner.style.opacity = String(1 - progress * 0.8);
-  }
-
-  if (parallaxLayer) {
-    parallaxLayer.style.transform = `translateY(${window.scrollY * 0.3}px)`;
   }
 }
 
