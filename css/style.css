@@ -185,12 +185,17 @@ ul { list-style: none; }
   display: none;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 5px;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.nav-toggle span {
+  width: 20px;
 }
 
 .nav-toggle span {
@@ -485,5 +490,37 @@ ul { list-style: none; }
   .pub-item, .cv-entry {
     grid-template-columns: 1fr;
     gap: var(--space-1);
+  }
+
+  .hero {
+    padding: var(--space-5) 0 var(--space-4);
+  }
+
+  .section {
+    padding: var(--space-5) 0;
+  }
+
+  .hero-tagline {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .container {
+    padding: 0 var(--space-2);
+  }
+
+  .about-photo {
+    width: 150px;
+    height: 150px;
+  }
+
+  .social-links {
+    gap: var(--space-1);
+  }
+
+  .icon-btn {
+    width: 40px;
+    height: 40px;
   }
 }
