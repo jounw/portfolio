@@ -46,72 +46,69 @@
   </div>
 
   <h2 id="schedule">Schedule</h2>
-  <table class="schedule-table">
-    <thead>
-      <tr>
-        <th class="col-num">#</th>
-        <th class="col-topic">Topic</th>
-        <th class="col-date">Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>RL Fundamentals + MDP</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>State Value Function V(s)</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Bellman Equation</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>DP (Value/Policy Iteration)</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>PyTorch + Neural Network Foundations</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>Value-Based RL (Q-Learning), Buffer</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>7</td>
-        <td>Policy Gradients</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>8</td>
-        <td>Actor-Critic, Maximum Entropy RL</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>9</td>
-        <td>SAC's Core Equations</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>10</td>
-        <td>Consolidation, Comparison</td>
-        <td class="date-cell"></td>
-      </tr>
-      <tr>
-        <td>11</td>
-        <td>Test</td>
-        <td class="date-cell"></td>
-      </tr>
-    </tbody>
-  </table>
+  <ol class="lecture-list">
+
+    <li class="lecture-item">
+      <p class="lecture-title">1. RL Fundamentals + MDP</p>
+      <p class="lecture-datetime">9/2 &middot; 12&ndash;1am</p>
+      <p class="lecture-desc">Agents, environments, rewards, and the Markov Decision Process formalism that everything else in the course builds on.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">2. State Value Function V(s)</p>
+      <p class="lecture-datetime">9/5 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">Defining how good a state is under a policy, and how returns are discounted over time.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">3. Bellman Equation</p>
+      <p class="lecture-datetime">9/6 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">The recursive relationship that underlies nearly every RL algorithm, for both value functions and action-value functions.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">4. DP (Value/Policy Iteration)</p>
+      <p class="lecture-datetime">9/9 &middot; 12&ndash;1am</p>
+      <p class="lecture-desc">Solving MDPs exactly with dynamic programming, and how value iteration and policy iteration converge to the optimal policy.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">5. PyTorch + NN Foundations</p>
+      <p class="lecture-datetime">9/12 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">Tensors, autograd, and building/training simple neural networks in PyTorch — the toolkit the rest of the course relies on.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">6. Value-Based RL (Q-Learning), Buffer</p>
+      <p class="lecture-datetime">9/13 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">Learning action values directly from experience, and why replay buffers make this stable enough to work in practice.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">7. Policy Gradients</p>
+      <p class="lecture-datetime">10/10 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">Optimizing a policy directly via gradient ascent on expected return, and the variance problems that motivate later methods.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">8. Actor-Critic, Max Entropy RL</p>
+      <p class="lecture-datetime">10/11 &middot; 11&ndash;12pm</p>
+      <p class="lecture-desc">Combining value and policy learning, and introducing entropy regularization as a way to encourage exploration.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">9. SAC's Core Equations</p>
+      <p class="lecture-datetime">10/14 &middot; 12&ndash;1am</p>
+      <p class="lecture-desc">Deriving the soft value function, soft Bellman backup, and the full Soft Actor-Critic objective from the pieces built up so far.</p>
+    </li>
+
+    <li class="lecture-item">
+      <p class="lecture-title">10. Consolidation + Comparison, then Test</p>
+      <p class="lecture-datetime">10/18 &middot; 11pm&ndash;1am</p>
+      <p class="lecture-desc">Comparing SAC against the value-based and policy-gradient methods covered earlier, followed by a comprehensive test on the full course.</p>
+    </li>
+
+  </ol>
 
   <footer class="course-footer">
     <p>Roadmap to SAC</p>

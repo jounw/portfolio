@@ -104,30 +104,37 @@ p {
   color: #000;
 }
 
-.schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
+.lecture-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.schedule-table th,
-.schedule-table td {
-  border: 1px solid #999;
-  padding: 8px 12px;
-  text-align: left;
-  vertical-align: top;
+.lecture-item {
+  padding: 16px 0;
+  border-bottom: 1px solid #ddd;
 }
 
-.schedule-table th {
-  background: #f0f0f0;
+.lecture-item:first-child {
+  padding-top: 0;
+}
+
+.lecture-title {
   font-weight: bold;
+  font-size: 1.05rem;
+  margin: 0 0 2px;
 }
 
-.col-num { width: 40px; }
-.col-date { width: 140px; }
+.lecture-datetime {
+  color: #8c1515;
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 0 6px;
+}
 
-.date-cell {
-  color: #999;
+.lecture-desc {
+  color: #333;
+  margin: 0;
 }
 
 .course-footer {
