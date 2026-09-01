@@ -1,0 +1,86 @@
+* { box-sizing: border-box; }
+
+body {
+  font-family: Georgia, "Times New Roman", serif;
+  color: #111;
+  background: #fff;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+a { color: #00008b; }
+a:hover { color: #ff0000; }
+
+.course-header h1 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  margin: 0 0 6px;
+}
+
+.instructor {
+  margin: 0;
+  color: #333;
+}
+
+.course-nav {
+  margin: 20px 0 30px;
+  padding: 8px 0;
+  border-top: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+
+.course-nav a {
+  margin-right: 20px;
+  font-size: 0.95rem;
+}
+
+.course-section {
+  margin-bottom: 36px;
+}
+
+.course-section h2 {
+  font-size: 1.2rem;
+  border-bottom: 2px solid #111;
+  padding-bottom: 4px;
+  margin-bottom: 14px;
+}
+
+.schedule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.schedule-table th,
+.schedule-table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.schedule-table th {
+  background: #f0f0f0;
+  font-weight: bold;
+}
+
+.col-num { width: 40px; }
+.col-date { width: 140px; }
+
+.date-cell {
+  color: #999;
+}
+
+.course-footer {
+  margin-top: 40px;
+  padding-top: 12px;
+  border-top: 1px solid #999;
+  font-size: 0.85rem;
+  color: #666;
+}
