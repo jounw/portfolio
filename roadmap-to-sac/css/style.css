@@ -87,6 +87,7 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 60% 40%;
 }
 
 .staff-name {
