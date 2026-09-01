@@ -61,6 +61,48 @@ p {
   margin: 0 0 16px;
 }
 
+.staff-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.staff-member {
+  text-align: center;
+  width: 140px;
+}
+
+.staff-photo {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #e5e5e5;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  margin: 0 auto 10px;
+}
+
+.staff-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.staff-name {
+  margin: 0;
+  font-weight: normal;
+}
+
+.staff-name a {
+  color: #8c1515;
+}
+
+.staff-role {
+  margin: 0;
+  color: #000;
+}
+
 .schedule-table {
   width: 100%;
   border-collapse: collapse;
