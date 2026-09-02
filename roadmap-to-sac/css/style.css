@@ -137,6 +137,15 @@ p {
   margin: 0;
 }
 
+.lecture-materials {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+}
+
+.lecture-materials a {
+  font-weight: bold;
+}
+
 .course-footer {
   margin-top: 48px;
   padding-top: 12px;
