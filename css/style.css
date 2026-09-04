@@ -313,6 +313,18 @@ ul { list-style: none; }
   color: var(--color-text-muted);
 }
 
+.hero-tagline a,
+.about-text a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.hero-tagline a:hover,
+.about-text a:hover {
+  color: var(--color-accent-hover);
+}
+
 .interest-tags {
   display: flex;
   flex-wrap: wrap;
