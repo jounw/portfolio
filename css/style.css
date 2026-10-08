@@ -380,6 +380,8 @@ ul { list-style: none; }
 
 .pub-links {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: var(--space-2);
   margin-top: var(--space-1);
 }
@@ -391,6 +393,28 @@ ul { list-style: none; }
 }
 
 .pub-links a:hover { text-decoration: underline; }
+
+.pub-bibtex[open] { flex-basis: 100%; }
+
+.pub-bibtex summary {
+  font-size: 0.85rem;
+  color: var(--color-accent);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.pub-bibtex summary:hover { text-decoration: underline; }
+
+.pub-bibtex pre {
+  margin-top: var(--space-1);
+  padding: var(--space-2);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
 
 /* ---------- CV ---------- */
 .cv-block {
