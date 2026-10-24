@@ -86,3 +86,11 @@ function onScroll() {
 
 window.addEventListener('scroll', onScroll, { passive: true });
 if (!prefersReducedMotion) updateHeroScrollEffects();
+
+/* Respect reduced motion for autoplaying project videos */
+if (prefersReducedMotion) {
+  document.querySelectorAll('video[autoplay]').forEach(v => {
+    v.removeAttribute('autoplay');
+    v.pause();
+  });
+}
