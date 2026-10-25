@@ -31,62 +31,6 @@ if (!prefersReducedMotion) {
   document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
 }
 
-/* Kinetic hero typography — split into characters and stagger them in */
-const kineticEl = document.querySelector('[data-kinetic]');
-
-if (kineticEl) {
-  const text = kineticEl.textContent;
-  kineticEl.textContent = '';
-  const chars = [...text].map(ch => {
-    const span = document.createElement('span');
-    span.className = 'char';
-    span.textContent = ch === ' ' ? ' ' : ch;
-    kineticEl.appendChild(span);
-    return span;
-  });
-
-  if (prefersReducedMotion) {
-    chars.forEach(c => c.classList.add('is-in'));
-  } else {
-    chars.forEach((c, i) => {
-      c.style.transitionDelay = (i * 40) + 'ms';
-      requestAnimationFrame(() => {
-        setTimeout(() => c.classList.add('is-in'), 50);
-      });
-    });
-  }
-}
-
-/* Hero shrink-on-scroll */
-const heroInner = document.querySelector('.hero-inner');
-const heroSection = document.getElementById('hero');
-
-function updateHeroScrollEffects() {
-  if (!heroSection) return;
-  const heroHeight = heroSection.offsetHeight;
-  const progress = Math.min(window.scrollY / heroHeight, 1);
-
-  if (heroInner) {
-    heroInner.style.transform = `scale(${1 - progress * 0.12}) translateY(${progress * -20}px)`;
-    heroInner.style.opacity = String(1 - progress * 0.8);
-  }
-}
-
-let ticking = false;
-
-function onScroll() {
-  if (!prefersReducedMotion && !ticking) {
-    ticking = true;
-    requestAnimationFrame(() => {
-      updateHeroScrollEffects();
-      ticking = false;
-    });
-  }
-}
-
-window.addEventListener('scroll', onScroll, { passive: true });
-if (!prefersReducedMotion) updateHeroScrollEffects();
-
 /* Respect reduced motion for autoplaying project videos */
 if (prefersReducedMotion) {
   document.querySelectorAll('video[autoplay]').forEach(v => {
