@@ -406,13 +406,64 @@ ul { list-style: none; }
   margin-top: var(--space-1);
 }
 
-.pub-links a {
+.pub-links a,
+.pub-preview {
   font-size: 0.85rem;
   color: var(--color-accent);
   font-weight: 500;
 }
 
-.pub-links a:hover { text-decoration: underline; }
+.pub-links a:hover,
+.pub-preview:hover { text-decoration: underline; }
+
+/* Mobile-only button that opens the thumbnail in a popup */
+.pub-preview {
+  display: none;
+  font-family: inherit;
+  line-height: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* ---------- Media popup ---------- */
+.media-dialog {
+  margin: auto;
+  width: min(92vw, 720px);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  overflow: hidden;
+}
+
+.media-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.media-dialog img,
+.media-dialog video {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.media-dialog-close {
+  position: absolute;
+  top: var(--space-1);
+  right: var(--space-1);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
 
 .pub-bibtex[open] { flex-basis: 100%; }
 
@@ -530,9 +581,9 @@ ul { list-style: none; }
     gap: var(--space-1);
   }
 
-  .pub-item { gap: var(--space-2); }
+  .pub-thumb { display: none; }
 
-  .pub-thumb { max-width: 360px; }
+  .pub-preview { display: inline; }
 
   .hero {
     min-height: 100vh;

@@ -94,3 +94,40 @@ if (prefersReducedMotion) {
     v.pause();
   });
 }
+
+/* Mobile thumbnail popup — thumbnails are hidden on small screens, so each
+   item gets a Figure/Video button that opens its media in a dialog */
+const mediaDialog = document.getElementById('mediaDialog');
+const mediaDialogBody = document.getElementById('mediaDialogBody');
+
+if (mediaDialog && mediaDialogBody) {
+  document.querySelectorAll('.pub-item').forEach(item => {
+    const media = item.querySelector('.pub-thumb img, .pub-thumb video');
+    const links = item.querySelector('.pub-links');
+    if (!media || !links) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'pub-preview';
+    button.textContent = media.tagName === 'VIDEO' ? 'Video' : 'Figure';
+    button.addEventListener('click', () => {
+      const clone = media.cloneNode(true);
+      clone.removeAttribute('style');
+      mediaDialogBody.replaceChildren(clone);
+      mediaDialog.showModal();
+      if (clone.tagName === 'VIDEO' && !prefersReducedMotion) clone.play();
+    });
+    links.prepend(button);
+  });
+
+  document.getElementById('mediaDialogClose').addEventListener('click', () => mediaDialog.close());
+  // Clicking the dimmed backdrop (the dialog element itself) closes it
+  mediaDialog.addEventListener('click', e => {
+    if (e.target === mediaDialog) mediaDialog.close();
+  });
+  // Drop the media so a video stops playing once the popup is closed; the
+  // close event can arrive after the popup was already reopened, so check
+  mediaDialog.addEventListener('close', () => {
+    if (!mediaDialog.open) mediaDialogBody.replaceChildren();
+  });
+}
