@@ -32,17 +32,17 @@
   <section class="intro" id="about">
     <div class="container">
       <h1 class="intro-name"><strong>Joun</strong> Won</h1>
-      <p class="intro-subtitle">Independent Researcher. Haeryong High School. Co-founder of <a href="https://openageacademia.org" target="_blank" rel="noopener">Open-Age Academia</a>.</p>
+      <p class="intro-subtitle">Independent Researcher. Haeryong High School. Co-founder of <a class="logo-link" href="https://openageacademia.org" target="_blank" rel="noopener"><img class="inline-logo" src="assets/oaa-logo.png" alt="">Open-Age Academia</a>.</p>
       <div class="intro-grid">
         <div class="intro-text">
           <p>
-            I am an independent researcher and a student at <a href="https://haeryong.jge.hs.kr/haeryong_hs/main.do?sysId=haeryong_hs"><img class="inline-logo" src="assets/haeryong-logo.svg" alt="">Haeryong High School</a>.
+            I am an independent researcher and a student at <a class="logo-link" href="https://haeryong.jge.hs.kr/haeryong_hs/main.do?sysId=haeryong_hs"><img class="inline-logo" src="assets/haeryong-logo.svg" alt="">Haeryong High School</a>.
           </p>
           <p>
-            My research focuses on developing XAI-driven control algorithms and interpreting reinforcement learning policies, with applications to aerospace systems — particularly orbital dynamics. I am broadly interested in making autonomous control systems that are interpretable. I also have a strong interest in learning-based control and its deployment on real robotic platforms, including manipulators and quadrupeds.
+            My research focuses on developing XAI-driven control algorithms and interpreting reinforcement learning policies, with applications to aerospace systems. I am broadly interested in making autonomous control systems that are interpretable. I also have a strong interest in learning-based control and its deployment on real robotic platforms, including manipulators and quadrupeds.
           </p>
           <p>
-            Outside of research, I co-founded <a href="https://openageacademia.org" target="_blank" rel="noopener">Open-Age Academia</a>, after running into the same wall as a high-school researcher. Open-Age Academia exists to make that path clearer for the next person.
+            Outside of research, I co-founded <a class="logo-link" href="https://openageacademia.org" target="_blank" rel="noopener"><img class="inline-logo" src="assets/oaa-logo.png" alt="">Open-Age Academia</a>, after running into the same wall as a high-school researcher. Open-Age Academia exists to make that path clearer for the next person.
           </p>
           <div class="social-links intro-social">
             <a href="mailto:jounwon5@gmail.com" class="icon-btn" aria-label="Email">
@@ -72,49 +72,51 @@
     </div>
   </section>
   <!-- Publications -->
-  <section class="section section-alt" id="publications">
+  <section class="section" id="publications">
     <div class="container">
-      <h2 class="section-title" data-reveal>Publications</h2>
+      <h2 class="section-title">Publications</h2>
       <div class="pub-list">
-        <article class="pub-item" data-reveal>
+        <article class="pub-item">
           <div class="pub-thumb">
             <img src="assets/pubs/glassbox-guidance.png" alt="Overview figure for What Do RL Spacecraft Guidance Policies Learn?" loading="lazy">
           </div>
           <div class="pub-body">
+            <div class="pub-meta">
+              <span class="pub-badge">NeurIPS</span>
+              <div class="pub-links">
+                <a href="https://openreview.net/forum?id=XTuN0nml2m" target="_blank" rel="noopener">Paper</a>
+                <a href="https://github.com/jounw/glassbox-guidance1" target="_blank" rel="noopener">Code</a>
+                <button type="button" class="pub-bibtex-toggle" aria-expanded="false" aria-controls="bibtex-won2026what">BibTeX</button>
+              </div>
+            </div>
             <h3 class="pub-title">What Do RL Spacecraft Guidance Policies Learn? Symbolic Distillation against a Known Control Law</h3>
             <p class="pub-authors"><strong>Joun Won</strong></p>
-            <p class="pub-venue">NeurIPS 2026 Workshop Interp4Discovery, 2026</p>
-            <div class="pub-links">
-              <a href="https://openreview.net/forum?id=XTuN0nml2m" target="_blank" rel="noopener">Paper</a>
-              <a href="https://github.com/jounw/glassbox-guidance1" target="_blank" rel="noopener">Code</a>
-              <details class="pub-bibtex">
-                <summary>BibTeX</summary>
-                <pre>@inproceedings{won2026what,
+            <p class="pub-venue">NeurIPS 2026 Workshop on Interpretability for Discovery</p>
+            <pre class="pub-bibtex" id="bibtex-won2026what" hidden>@inproceedings{won2026what,
 title={What Do {RL} Spacecraft Guidance Policies Learn? Symbolic Distillation against a Known Control Law},
 author={Joun Won},
 booktitle={NeurIPS 2026 Workshop on Interpretability for Discovery},
 year={2026},
 url={https://openreview.net/forum?id=XTuN0nml2m}
 }</pre>
-              </details>
-            </div>
           </div>
         </article>
         <!--
-        <article class="pub-item" data-reveal>
+        <article class="pub-item">
           <div class="pub-thumb">
             <img src="assets/pubs/[image-file]" alt="[Figure description]" loading="lazy">
           </div>
           <div class="pub-body">
+            <div class="pub-meta">
+              <span class="pub-badge">[VENUE]</span>
+              <div class="pub-links">
+                <a href="#">Paper</a>
+                <a href="#">Code</a>
+              </div>
+            </div>
             <h3 class="pub-title">[Paper title goes here]</h3>
             <p class="pub-authors">[Co-author 1], <strong>[Your Name]</strong></p>
-            <p class="pub-venue">[Journal / Conference name], [Year]</p>
-            <div class="pub-links">
-              <a href="#">Paper</a>
-              <a href="#">PDF</a>
-              <a href="#">Code</a>
-              <a href="#">BibTeX</a>
-            </div>
+            <p class="pub-venue">[Full venue name, e.g. ICML 2026 Workshop on ...]</p>
           </div>
         </article>
         -->
@@ -125,30 +127,34 @@ url={https://openreview.net/forum?id=XTuN0nml2m}
   <!-- Projects -->
   <section class="section" id="projects">
     <div class="container">
-      <h2 class="section-title" data-reveal>Projects</h2>
+      <h2 class="section-title">Projects</h2>
       <div class="pub-list">
-        <article class="pub-item" data-reveal>
+        <article class="pub-item">
           <div class="pub-thumb">
             <img class="thumb-cover" src="assets/projects/openroboticdog.gif" alt="OpenRoboticDog-RL demo" data-preview-label="Video" loading="lazy">
           </div>
           <div class="pub-body">
+            <div class="pub-meta">
+              <div class="pub-links">
+                <a href="https://github.com/jounw/OpenRoboticDog-RL" target="_blank" rel="noopener">Code</a>
+              </div>
+            </div>
             <h3 class="pub-title">OpenRoboticDog-RL</h3>
             <p class="project-desc">A reinforcement-learned, joystick-controlled walking policy for the OpenRoboticDog quadruped, built with HR Robotics at Haeryong High School.</p>
-            <div class="pub-links">
-              <a href="https://github.com/jounw/OpenRoboticDog-RL" target="_blank" rel="noopener">Code</a>
-            </div>
           </div>
         </article>
-        <article class="pub-item" data-reveal>
+        <article class="pub-item">
           <div class="pub-thumb">
             <img class="thumb-cover" src="assets/projects/roarm-pick-and-place.gif" alt="RoArm-M2 Pick-and-Place demo" data-preview-label="Video" loading="lazy" style="object-position: center;">
           </div>
           <div class="pub-body">
+            <div class="pub-meta">
+              <div class="pub-links">
+                <a href="https://github.com/jounw/RoArm-M2-pick-and-place" target="_blank" rel="noopener">Code</a>
+              </div>
+            </div>
             <h3 class="pub-title">RoArm-M2 Pick-and-Place</h3>
             <p class="project-desc">A voice- and text-commanded pick-and-place system for the RoArm-M2 robot arm, built with HR Robotics at Haeryong High School.</p>
-            <div class="pub-links">
-              <a href="https://github.com/jounw/RoArm-M2-pick-and-place" target="_blank" rel="noopener">Code</a>
-            </div>
           </div>
         </article>
         <!-- Copy a pub-item block above to add more projects -->
@@ -156,10 +162,10 @@ url={https://openreview.net/forum?id=XTuN0nml2m}
     </div>
   </section>
   <!-- CV -->
-  <section class="section section-alt" id="cv">
+  <section class="section" id="cv">
     <div class="container">
-      <h2 class="section-title" data-reveal>CV</h2>
-      <div class="cv-block" data-reveal>
+      <h2 class="section-title">CV</h2>
+      <div class="cv-block">
         <h3 class="cv-block-title">Awards &amp; Honors</h3>
         <div class="cv-entry">
           <div class="cv-entry-time">2026</div>
@@ -184,7 +190,7 @@ url={https://openreview.net/forum?id=XTuN0nml2m}
           </div>
         </div>
       </div>
-      <div class="cv-block" data-reveal>
+      <div class="cv-block">
         <h3 class="cv-block-title">Education</h3>
         <div class="cv-entry">
           <div class="cv-entry-time">2025 – Present</div>
@@ -198,9 +204,9 @@ url={https://openreview.net/forum?id=XTuN0nml2m}
   <!-- Contact -->
   <section class="section" id="contact">
     <div class="container contact-inner">
-      <h2 class="section-title" data-reveal>Contact</h2>
-      <p data-reveal>I like getting emails.</p>
-      <div class="social-links social-links-center" data-reveal>
+      <h2 class="section-title">Contact</h2>
+      <p>I like getting emails.</p>
+      <div class="social-links social-links-center">
         <a href="mailto:jounwon5@gmail.com" class="icon-btn" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6.5 12 13l9-6.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="5" width="18" height="14" rx="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>

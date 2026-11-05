@@ -13,23 +13,16 @@ navLinks.querySelectorAll('a').forEach(link => {
   });
 });
 
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* Scroll reveal via IntersectionObserver */
-if (!prefersReducedMotion) {
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-
-  document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
-} else {
-  document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('is-visible'));
-}
+/* BibTeX buttons show or hide the citation below the entry */
+document.querySelectorAll('.pub-bibtex-toggle').forEach(button => {
+  const target = document.getElementById(button.getAttribute('aria-controls'));
+  if (!target) return;
+  button.addEventListener('click', () => {
+    const open = target.hidden;
+    target.hidden = !open;
+    button.setAttribute('aria-expanded', String(open));
+  });
+});
 
 /* Mobile thumbnail popup — thumbnails are hidden on small screens, so each
    item gets a Figure/Video button that opens its media in a dialog */
