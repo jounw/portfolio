@@ -183,6 +183,15 @@ ul { list-style: none; }
   text-underline-offset: 2px;
 }
 
+/* Small logo sized to the surrounding text */
+.inline-logo {
+  display: inline-block;
+  height: 1em;
+  width: auto;
+  margin-right: 0.25em;
+  vertical-align: -0.125em;
+}
+
 .social-links.intro-social {
   justify-content: flex-start;
   margin-top: var(--space-3);
