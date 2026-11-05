@@ -186,10 +186,15 @@ ul { list-style: none; }
 /* Small logo sized to the surrounding text */
 .inline-logo {
   display: inline-block;
-  height: 1em;
-  width: auto;
+  /* Explicit width and height: some mobile browsers fall back to the SVG's
+     intrinsic 573px size when width is "auto". */
+  height: 1.1em;
+  width: 1.1em;
+  max-width: 1.1em;
+  max-height: 1.1em;
+  object-fit: contain;
   margin-right: 0.25em;
-  vertical-align: -0.125em;
+  vertical-align: -0.15em;
 }
 
 .social-links.intro-social {
