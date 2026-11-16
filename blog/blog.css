@@ -82,3 +82,6 @@ a:hover { text-decoration-color: var(--text); }
 .post pre:hover .copy-btn, .copy-btn:focus-visible { opacity: 1; }
 .copy-btn:hover { color: var(--text); }
 @media (hover: none) { .copy-btn { opacity: 1; } }
+
+/* Favicon in front of external links */
+.post a .link-favicon { display: inline-block; width: 1.05em; height: 1.05em; margin: 0 0.3em 0.15em 0; vertical-align: middle; border-radius: 3px; }

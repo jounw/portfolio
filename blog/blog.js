@@ -9,6 +9,17 @@
     src.after(out);
   });
 
+  /* Put each external link's favicon in front of its text */
+  document.querySelectorAll('.post a[href^="http"]').forEach(function (a) {
+    if (a.hostname === location.hostname || a.querySelector('img')) return;
+    var icon = document.createElement('img');
+    icon.className = 'link-favicon';
+    icon.alt = '';
+    icon.src = 'https://www.google.com/s2/favicons?sz=64&domain=' + encodeURIComponent(a.hostname);
+    icon.addEventListener('error', function () { icon.remove(); });
+    a.prepend(icon);
+  });
+
   if (window.hljs) {
     document.querySelectorAll('.post pre code').forEach(function (el) { hljs.highlightElement(el); });
   }
