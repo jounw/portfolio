@@ -508,6 +508,12 @@ ul { list-style: none; }
   text-align: center;
 }
 
+.site-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 720px) {
   .nav-links {

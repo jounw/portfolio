@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title> The reason why i live like a weirdo. - Joun Won</title>
+<meta name="description" content="Why this blog exists and how to write posts in it.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link rel="stylesheet" href="../blog.css">
+</head>
+<body>
+<header class="blog-header">
+  <div class="wrap">
+    <a class="blog-title" href="../">Joun Won's Blog</a>
+    <nav class="blog-nav"><a href="../../">&larr; Portfolio</a></nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <article class="post">
+    <header class="post-head">
+        <h1>The reason why I live like a weirdo</h1>
+      <span class="post-date">November 15, 2026</span>
+    </header>
+
+<script type="text/markdown">
+
+Someone who know me will say that I am kind of a weirdo, for sure. Or at least that i am abnormal. And also, some say that i would be very successful if I was born in the US. However, I was born in South Korea and livimg here. I can do nothing about that. But if you ask me wearhr i dont like my life, my answer will be: "no. I lie the way I am living now." Beacuse I don't need to be in America to do what I want to do, and also being that one sutdent who does something that no other do is fun.
+
+I don't want to admit but I was that student who makes trouble and always being scalded by teachers at middle schoo. 
+
+
+
+
+This is a place for longer write-ups than the portfolio has room for: project notes, things I got stuck on, and how I fixed them.
+
+## Writing a post
+
+Each post is a file in `blog/posts/`. Copy `_template.html`, write the body in Markdown, and add a line to the list in `blog/index.html`.
+
+Use triple backticks for a code block, with the language after them:
+
+```python
+def hello():
+    print("hello, world")
+
+class Greeter:
+    def __init__(self, name: str):
+        self.name = name  # a comment
+
+    def greet(self) -> str:
+        return f"Hello, {self.name}! {1 + 2}"
+```
+
+Inline code like `np.linalg.norm(x)` uses single backticks. **Bold**, *italic*, [links](https://example.com), lists and images work too:
+
+![Example figure](img/example.png)
+
+> Quotes are styled as well.
+</script>
+  </article>
+</main>
+
+<footer class="wrap blog-footer"><a href="../">&larr; All posts</a></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="../blog.js"></script>
+</body>
+</html>
