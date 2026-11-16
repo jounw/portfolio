@@ -3,13 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light">
-<title> The reason why i live like a weirdo. - Joun Won</title>
+<meta name="color-scheme" content="light dark">
+<title>Developing OpenRoboticDog-RL: An open-source dog walking policy. - Joun Won</title>
 <meta name="description" content="Why this blog exists and how to write posts in it.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" media="(prefers-color-scheme: light)">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" media="(prefers-color-scheme: dark)">
 <link rel="stylesheet" href="../blog.css">
 </head>
 <body>
@@ -23,44 +24,137 @@
 <main class="wrap">
   <article class="post">
     <header class="post-head">
-        <h1>The reason why I live like a weirdo</h1>
-      <span class="post-date">November 15, 2026</span>
+        <h1>Developing OpenRoboticDog-RL: An open-source dog walking policy.</h1>
+      <span class="post-date">November 16, 2026</span>
     </header>
 
 <script type="text/markdown">
+OpenRoboticDog-RL is a reinforcement-learned, joystick-controlled walking policy developed by HR Robotics (the robotics research club I belong to; [link](https://hrobotics.netlify.app)) for the OpenRoboticDog quadruped. All of the codes and weights are at our [Github repo](https://github.com/jounw/OpenRoboticDog-RL). The current version is `g4s_6_hybrid_filter_282M`, which is trainned on single G4 GPU about 2 h 16 min. The policy is under active development and will keep being upgraded. To put it qualitatively, it kind of walks well. Also, huge credits to [Mathias Garcia](https://www.garciamathias.xyz) for designing [OpenRoboticDog](https://github.com/garciamathias/OpenRoboticDog).
 
-Someone who know me will say that I am kind of a weirdo, for sure. Or at least that i am abnormal. And also, some say that i would be very successful if I was born in the US. However, I was born in South Korea and livimg here. I can do nothing about that. But if you ask me wearhr i dont like my life, my answer will be: "no. I lie the way I am living now." Beacuse I don't need to be in America to do what I want to do, and also being that one sutdent who does something that no other do is fun.
+In this post I want to write about how it actually works, not just that it works. The robot is a 1.5 kg, 3D-printed quadruped with 12 Feetech STS3215 servos, a Raspberry Pi 5 and a BNO055 IMU. The policy is trained in simulation with MuJoCo Playground and Brax PPO, then runs on the real robot at 50 Hz while I drive it from a phone.
 
-I don't want to admit but I was that student who makes trouble and always being scalded by teachers at middle schoo. 
+![The robot standing in its default pose](img/robot.jpg)
+![The learned policy walking on the real robot](img/real-walk.gif)
 
+## The overall pipeline
 
+1. Train in MJX (JAX) on a Colab GPU with 8192 parallel environments.
+2. Export the network to a single `.npz` file.
+3. Run it on the Pi with NumPy only, no JAX, no MuJoCo.
+4. Send the joint targets to the servos and read the IMU and encoders back.
 
-
-This is a place for longer write-ups than the portfolio has room for: project notes, things I got stuck on, and how I fixed them.
-
-## Writing a post
-
-Each post is a file in `blog/posts/`. Copy `_template.html`, write the body in Markdown, and add a line to the list in `blog/index.html`.
-
-Use triple backticks for a code block, with the language after them:
+The policy is a plain MLP with 512, 256 and 128 units, swish activations and a `tanh` output. The inference code is about ten lines, so the Pi does not need the whole sim stack:
 
 ```python
-def hello():
-    print("hello, world")
-
-class Greeter:
-    def __init__(self, name: str):
-        self.name = name  # a comment
-
-    def greet(self) -> str:
-        return f"Hello, {self.name}! {1 + 2}"
+def __call__(self, obs):
+    x = (np.asarray(obs, dtype=np.float32) - self.mean) / self.std
+    for i, (w, b) in enumerate(self.layers):
+        x = x @ w + b
+        if i < len(self.layers) - 1:
+            x = x / (1.0 + np.exp(-x))   # swish
+    return np.tanh(x[: self.act_size])
 ```
 
-Inline code like `np.linalg.norm(x)` uses single backticks. **Bold**, *italic*, [links](https://github.com/jounw), lists and images work too:
+## Observation and action
 
-![Example figure](img/example.png)
+The observation has 45 numbers.
 
-> Quotes are styled as well.
+| Part | Size |
+|---|---|
+| Gravity vector in the body frame | 3 |
+| Gyro | 3 |
+| Joystick command (vx, vy, yaw) | 3 |
+| Joint angle minus default pose | 12 |
+| Joint velocity | 12 |
+| Previous action | 12 |
+
+There is no linear velocity in it, because I cannot measure that on the real robot. The value network is allowed to see it though. In PPO the critic is only used during training, so I give it a privileged state (linear velocity, foot contacts, the randomized servo parameters, the delay and so on) and keep the actor honest.
+
+The action is 12 numbers in the range of -1 to 1. The target joint angle is `stance_offset + 0.5 * action`. Two small things here mattered more than I expected.
+
+First, I put a low-pass filter on the action with `alpha = 0.4`. The important part is that the same filter runs in training and on the robot, so the policy learns with it in the loop. It smooths the commands, which is easier on the servos.
+
+Second, the stance offset moves the feet 2.6 cm back. The point is that the front and rear legs carry equal load.
+
+## The servo was the hard part
+
+The reward and the network are mostly copied from the Go1 joystick task in MuJoCo Playground. What took most of the time was making the simulated servo behave like the real one.
+
+**Position mode.** The STS3215 has a built-in position controller, but its firmware limits acceleration to roughly 8 rad/s². A step of 0.3 rad takes about 400 ms. That is way too slow for a trot, and the policy cannot do anything about a limit it cannot see. I first modeled this with a trajectory generator (`ServoProfile`) that ramps velocity up and down under an acceleration limit and feeds the result to a MuJoCo position actuator.
+
+**PWM mode.** The servo also has an open-loop PWM mode, which skips the firmware trajectory generator. In that mode I close the loop myself on the Pi:
+
+```
+duty = clip(kp * (q_target - q) - kd * q_dot, -800, 800)
+```
+
+with `kp = 8000` and `kd = 150`, running at 250 Hz. I measured the servo with open-loop duty steps and fitted a first-order motor model:
+
+```
+J * d(omega)/dt = Kt * duty - b * omega
+```
+
+| Parameter | Value |
+|---|---|
+| Speed per duty | 0.00506 rad/s |
+| Speed time constant | 21 ms |
+| Command delay | 8 ms |
+| Reflected inertia | 0.0121 kg m^2 |
+
+Kt is taken from the spec sheet (2.9 N·m stall), not measured. With these numbers the sim reproduces my real step response log with 0.55° RMSE. A 0.3 rad step now takes about 110 to 140 ms to reach 90 %, instead of 400 ms.
+
+**Hybrid.** In the end I used both. Thighs and calves run in PWM mode with the PD on the Pi, and hips stay in firmware position mode. When I tried PWM on the hips there was a jump when switching the mode, so I left them alone. The simulator has the same split, which is what `hybrid` in the policy name means.
+
+One annoying detail: the STS3215 Offset register is subtracted from the reported position in position mode, but not in PWM mode. So the same joint reads a different number depending on the mode. The deploy code subtracts it by hand so both modes use the same units.
+
+## Making it survive the real world
+
+Everything below is domain randomization and delay, nothing fancy:
+
+- Foot friction from 0.05 to 1.5, log-uniform
+- Mass ±5 %, extra payload on the trunk, center of mass ±2 cm
+- Servo gains ±20 %
+- Command delay of 0 to 2 control steps (hips get one more with some probability)
+- Observation noise on gravity, gyro, joint position and velocity
+
+The sim runs physics at 500 Hz and the policy at 50 Hz. PPO used 8192 envs, a learning rate of 3e-4, a discount of 0.97 and 281.8 M steps total. One more change from the Go1 setup is the tracking sigma. I scaled it down to 0.03 for linear velocity, to fit the small command range of this robot.
+
+![Learning curves of g4s_6](img/progress.png)
+
+## Deployment loop
+
+On the Pi, every 20 ms the runner does this:
+
+1. Read joint positions from the servo bus and gravity and gyro from the IMU.
+2. Rotate the IMU into the body frame with a mounting quaternion. I measured it by letting the robot stand on a flat floor and rotating the measured gravity onto the body -z axis.
+3. Build the 45-dim observation, run the policy, apply the same action filter as in training.
+4. Convert angles to servo values (`zero + direction * angle * 4096 / 2π`), clipped to the joint limits.
+
+The joystick is a small web page served from the Pi on port 8080, so any phone on the same network works. Safety is simple on purpose. If the body tilts more than 60° or I press E-STOP, torque goes off. Low battery voltage, over-current or over-temperature stops the program. Large target jumps are clipped per step, and if the joystick stops sending for 0.5 s the command goes to zero.
+
+## The calibration story
+
+My favorite bug was in the hips. I assembled the hip horns rotated by 45°, so at the servo value 2048 the legs splayed outward instead of pointing down. Instead of taking everything apart, I just wrote the real zero values in `servo_map.yaml` (1536 for some hips and 2560 for the mirrored ones) and let the sign of `direction` handle the left-right and front-rear mirroring. It is ugly but it works.
+
+Before any learning I also wrote a hand-coded trot with analytic inverse kinematics (`gait.py`, `leg_ik.py`). It was only for checking that the joint directions, zeros and limits were right. If a hand-coded gait cannot walk, a policy will not either, and then you are debugging two things at once. It also had a correction for the twist of the real leg swing plane, since the front legs bent right and the rear legs bent left on the real robot.
+
+## What is still bad
+
+| Command | Result in sim |
+|---|---|
+| Forward 0.3 / 0.5 m/s | 0.31 / 0.49 m/s |
+| Backward 0.2 m/s | 0.19 m/s |
+| Sideways 0.2 m/s | 0.12 m/s |
+| Yaw 0.5 / 1.0 / 1.5 rad/s | 0.45 / 0.84 / 1.06 rad/s |
+
+- Sideways walking only reaches about 60 % of the command, and fast turning is also weaker.
+- The real robot jitters more than the sim. My main suspects are gear backlash and the IMU path, and neither is modeled yet.
+- I have not tested the hips in PWM mode on the real robot.
+- Total current while walking is not measured yet.
+
+![The policy in the sim: forward, backward, sideways and turning](img/sim-demo.gif)
+
+Backlash is the first thing I want to add to the servo model. If you want to try it, the sim command is in the README of the [repo](https://github.com/jounw/OpenRoboticDog-RL), and it runs on a laptop without the robot.
 </script>
   </article>
 </main>

@@ -20,6 +20,13 @@
     a.prepend(icon);
   });
 
+  /* Paragraphs that contain only images (2 or more) become one equal-size row */
+  document.querySelectorAll('.post p').forEach(function (p) {
+    if (p.querySelectorAll('img').length > 1 && p.textContent.trim() === '') p.classList.add('img-row');
+  });
+
+  document.querySelectorAll('.post img').forEach(function (img) { img.loading = 'lazy'; });
+
   if (window.hljs) {
     document.querySelectorAll('.post pre code').forEach(function (el) { hljs.highlightElement(el); });
   }
